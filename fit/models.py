@@ -196,3 +196,12 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"Comment by {self.user.username} on Post {self.post.id}"
+
+
+class Media(models.Model):
+    workout = models.ForeignKey('Workout', on_delete=models.CASCADE, related_name='media_files')
+    file = models.FileField(upload_to='workout_media/')  # Stores images or videos
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Media for Workout {self.workout.id}"

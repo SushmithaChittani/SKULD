@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from fit.models import ( User, Workout, Exercise, Progress, Goal, 
                          Nutrition, Activity, Friendship, Follow, Message, 
-                         Challenge, Post, Like, Comment )
+                         Challenge, Post, Like, Comment, Media )
 from django.utils.encoding import smart_str, force_bytes, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
@@ -187,3 +187,10 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = ['id', 'user', 'post', 'content', 'created_at', 'updated_at']
+
+
+class MediaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Media
+        fields = ['id', 'workout', 'file', 'uploaded_at']
+        read_only_fields = ['uploaded_at']

@@ -10,10 +10,10 @@ from .serializers import (
     UserPasswordResetSerializer, UserProfileSerializer, UserRegistrationSerializer,
     WorkoutSerializer, ExerciseSerializer, ProgressSerializer, GoalSerializer,
     NutritionSerializer, ActivitySerializer, FriendshipSerializer, FollowSerializer, MessageSerializer,
-    ChallengeSerializer, PostSerializer, LikeSerializer, CommentSerializer
+    ChallengeSerializer, PostSerializer, LikeSerializer, CommentSerializer, MediaSerializer
 )
 from .models import ( Workout, Exercise, Progress, Goal, 
-                     Nutrition, Activity, Friendship, Follow, Message, Challenge, Post, Like, Comment )
+                     Nutrition, Activity, Friendship, Follow, Message, Challenge, Post, Like, Comment, Media )
 from .renderers import UserRenderer
 
 # Helper function to generate JWT tokens
@@ -242,3 +242,8 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+class MediaViewSet(viewsets.ModelViewSet):
+    queryset = Media.objects.all()
+    serializer_class = MediaSerializer
+    

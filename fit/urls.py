@@ -1,6 +1,8 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import PostViewSet, LikeViewSet, CommentViewSet
+from .views import PostViewSet, LikeViewSet, CommentViewSet, MediaViewSet
 from fit.views import (
     SendPasswordResetEmailView, UserChangePasswordView, UserLoginView,
     UserProfileView, UserRegistrationView, UserPasswordResetView,
@@ -12,6 +14,7 @@ router = DefaultRouter()
 router.register(r'posts', PostViewSet)
 router.register(r'likes', LikeViewSet)
 router.register(r'comments', CommentViewSet)
+router.register(r'media', MediaViewSet)
 
 urlpatterns = [
     # Authentication URLs
@@ -36,3 +39,7 @@ urlpatterns = [
     path('analytics/', AnalyticsView.as_view(), name='analytics'),
     path('', include(router.urls)),
 ]
+
+# Serve media files during development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
